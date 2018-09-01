@@ -10,7 +10,7 @@ import UIKit
 
 let kDegree = "\u{00B0}"
 
-class MainWeatherViewController: UIViewController {
+class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     // MARK: - Properties
     var weatherObject: WeatherObject?
@@ -19,6 +19,9 @@ class MainWeatherViewController: UIViewController {
     let tempLabel = UILabel()
     let descriptionLabel = UILabel()
     let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    
+    // Forecast
+    var forecastCollectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +68,8 @@ class MainWeatherViewController: UIViewController {
         self.weatherObject = weatherObject
         indicatorView.stopAnimating()
         indicatorView.isHidden = true
-        
+
+        self.forecastCollectionView?.reloadData()
     }
     
     func updateView(withError error: Error?, message: String) {
@@ -74,6 +78,8 @@ class MainWeatherViewController: UIViewController {
         self.title = nil
         self.indicatorView.stopAnimating()
         indicatorView.isHidden = true
+        
+        self.forecastCollectionView?.reloadData()
         
         if (error != nil) {
             let ac = UIAlertController(title: "An Error Occurred", message: error!.localizedDescription, preferredStyle: .alert)
@@ -91,6 +97,9 @@ class MainWeatherViewController: UIViewController {
         self.title = nil
         indicatorView.isHidden = false
         indicatorView.startAnimating()
+        
+        self.weatherObject = nil
+        self.forecastCollectionView?.reloadData()
     }
     
     // MARK: - Configure View
@@ -126,5 +135,53 @@ class MainWeatherViewController: UIViewController {
             mainSV.heightAnchor.constraint(equalToConstant: 150)
             ])
         
+        configureForecastCollectionView()
+    }
+    
+    func configureForecastCollectionView() {
+        if (forecastCollectionView != nil) {
+            return
+        }
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.itemSize = CGSize(width: 120, height: 180)
+        
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 196), collectionViewLayout: flowLayout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(collectionView)
+        let guide = self.view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            collectionView.bottomAnchor.constraintEqualToSystemSpacingBelow(guide.bottomAnchor, multiplier: 1.0),
+            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 196)
+            ])
+        
+        
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "forecastCell")
+        self.forecastCollectionView = collectionView
+        
+        
+    }
+    
+    // MARK: - CollectionView Delegate and DataSource
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.weatherObject?.forecasts.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = self.forecastCollectionView?.dequeueReusableCell(withReuseIdentifier: "forecastCell", for: indexPath)
+        
+        cell?.backgroundColor = .green
+        
+        return cell ?? UICollectionViewCell()
     }
 }
