@@ -15,6 +15,8 @@
 		FAE1F77A213AF338002F20B9 /* Weather_StopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F779213AF338002F20B9 /* Weather_StopTests.swift */; };
 		FAE1F785213AF338002F20B9 /* Weather_StopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F784213AF338002F20B9 /* Weather_StopUITests.swift */; };
 		FAE1F794213AF3DB002F20B9 /* YahooWeatherAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F793213AF3DB002F20B9 /* YahooWeatherAPIController.swift */; };
+		FAE1F796213AFFF1002F20B9 /* WeatherObjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F795213AFFF1002F20B9 /* WeatherObjectController.swift */; };
+		FAE1F798213B018D002F20B9 /* WeatherObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F797213B018D002F20B9 /* WeatherObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		FAE1F784213AF338002F20B9 /* Weather_StopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_StopUITests.swift; sourceTree = "<group>"; };
 		FAE1F786213AF338002F20B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAE1F793213AF3DB002F20B9 /* YahooWeatherAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooWeatherAPIController.swift; sourceTree = "<group>"; };
+		FAE1F795213AFFF1002F20B9 /* WeatherObjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherObjectController.swift; sourceTree = "<group>"; };
+		FAE1F797213B018D002F20B9 /* WeatherObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				FAE1F793213AF3DB002F20B9 /* YahooWeatherAPIController.swift */,
+				FAE1F795213AFFF1002F20B9 /* WeatherObjectController.swift */,
+				FAE1F797213B018D002F20B9 /* WeatherObject.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -270,6 +276,8 @@
 				FAE1F767213AF337002F20B9 /* ViewController.swift in Sources */,
 				FAE1F765213AF337002F20B9 /* AppDelegate.swift in Sources */,
 				FAE1F794213AF3DB002F20B9 /* YahooWeatherAPIController.swift in Sources */,
+				FAE1F798213B018D002F20B9 /* WeatherObject.swift in Sources */,
+				FAE1F796213AFFF1002F20B9 /* WeatherObjectController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
