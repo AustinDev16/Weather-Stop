@@ -27,6 +27,26 @@ class WeatherObjectController {
     // Builds object from API response
     static func buildWeatherObject(fromDictionary dict:Dictionary<String, Any>?) -> WeatherObject? {
         
-        return nil
+        guard let response = dict else { return nil }
+        print(response)
+        // Extract out channel from response
+        guard let query = response["query"] as? Dictionary<String, Any>,
+        let result = query["results"] as? Dictionary<String, Any>,
+        let channel = result["channel"] as? Dictionary<String, Any> else { return nil }
+        
+        
+        // Extract Individual channels
+        
+        // Item
+        guard let item = channel["item"] as? Dictionary<String, Any>,
+        let condition = item["condition"] as? Dictionary<String, Any> else {return nil}
+        
+        // Location
+        guard let location = channel["location"] as? Dictionary<String, String> else {return nil}
+        
+        // Units
+        guard let units = channel["units"] as? Dictionary<String, String> else { return nil }
+        
+        return WeatherObject.init(conditionDict: condition, locationDict: location, unitDictionary: units)
     }
 }
