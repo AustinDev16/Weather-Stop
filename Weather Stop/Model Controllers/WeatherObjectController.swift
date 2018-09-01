@@ -51,6 +51,20 @@ class WeatherObjectController {
         // Units
         guard let units = channel["units"] as? Dictionary<String, String> else { return nil }
         
-        return WeatherObject.init(conditionDict: condition, locationDict: location, unitDictionary: units)
+        let weather = WeatherObject.init(conditionDict: condition, locationDict: location, unitDictionary: units)
+        
+        // Forecasts
+        guard let forecasts = item["forecast"] as? [Dictionary<String, Any>] else {return weather }
+        
+        forecasts.forEach { (forecastDict) in
+            let newForecast = Forecast(dictionary: forecastDict, isToday: false)
+            if (newForecast != nil) {
+                weather?.forecasts.append(newForecast!)
+            }
+        }
+        
+        
+        
+        return weather
     }
 }

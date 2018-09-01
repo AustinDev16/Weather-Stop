@@ -26,6 +26,9 @@ class WeatherObject {
     var tempUnit: String
     var speedUnit: String
     
+    // MARK: - Forecasts
+    var forecasts: [Forecast] = []
+    
     init(temp: String, description: String, city: String, country: String, region: String, tempUnit: String, speedUnit: String) {
         self.temp = temp
         self.textDescription = description

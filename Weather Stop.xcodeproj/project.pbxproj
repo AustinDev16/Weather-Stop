@@ -17,6 +17,7 @@
 		FAE1F796213AFFF1002F20B9 /* WeatherObjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F795213AFFF1002F20B9 /* WeatherObjectController.swift */; };
 		FAE1F798213B018D002F20B9 /* WeatherObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F797213B018D002F20B9 /* WeatherObject.swift */; };
 		FAE1F79B213B119F002F20B9 /* MainWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F79A213B119F002F20B9 /* MainWeatherViewController.swift */; };
+		FAE1F79D213B5115002F20B9 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F79C213B5115002F20B9 /* Forecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		FAE1F795213AFFF1002F20B9 /* WeatherObjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherObjectController.swift; sourceTree = "<group>"; };
 		FAE1F797213B018D002F20B9 /* WeatherObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherObject.swift; sourceTree = "<group>"; };
 		FAE1F79A213B119F002F20B9 /* MainWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherViewController.swift; sourceTree = "<group>"; };
+		FAE1F79C213B5115002F20B9 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				FAE1F793213AF3DB002F20B9 /* YahooWeatherAPIController.swift */,
 				FAE1F795213AFFF1002F20B9 /* WeatherObjectController.swift */,
 				FAE1F797213B018D002F20B9 /* WeatherObject.swift */,
+				FAE1F79C213B5115002F20B9 /* Forecast.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				FAE1F79B213B119F002F20B9 /* MainWeatherViewController.swift in Sources */,
 				FAE1F794213AF3DB002F20B9 /* YahooWeatherAPIController.swift in Sources */,
 				FAE1F798213B018D002F20B9 /* WeatherObject.swift in Sources */,
+				FAE1F79D213B5115002F20B9 /* Forecast.swift in Sources */,
 				FAE1F796213AFFF1002F20B9 /* WeatherObjectController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
