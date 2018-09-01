@@ -33,16 +33,17 @@ class MainWeatherViewController: UIViewController {
         let testQuery = "select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text=\"(40.7141667,-74.0063889)\")"
         WeatherObjectController.fetchWeather(withYQLQuery: testQuery) { (weatherObj, error) in
             if (error != nil) {
-                print(error!.localizedDescription)
+                //print(error!.localizedDescription)
+                self.updateView(withError: error, message: "")
             } else {
                 guard let update = weatherObj else {
                     
-                    updateView(withError: nil, message: "No data available for this location. Try again.")
+                    self.updateView(withError: nil, message: "No data available for this location. Try again.")
                     
                     return
                     
                 }
-                updateView(update)
+                self.updateView(update)
             }
         }
         
