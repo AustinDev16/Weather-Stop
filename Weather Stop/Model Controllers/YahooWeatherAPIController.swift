@@ -16,9 +16,13 @@ class YahooWeatherAPIController {
     
     // MARK: - Methods
     static func fetchWeather(withYQLQuery query: String,
-                             completion: (Dictionary<String, Any>?, Error?)) {
+                             completion: (Dictionary<String, Any>?, Error?, Bool) -> Void) {
+
         // Construct Query String
-        
+        // YQL -> percent encoded string
+        guard let percentEncodedStr = query.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics) else { completion(nil, nil, false); return;}
+        let fullURLString = endPointPrefix + percentEncodedStr + endPointSuffix
+        print(fullURLString)
         // Make network call
         
         // Process Result
