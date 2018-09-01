@@ -8,19 +8,13 @@
 
 import Foundation
 // MARK: - API Dictionary Keys
-private let kConditionTemp = "temp"
-private let kConditionText = "text"
-private let kLocationCity = "city"
-private let kLocationCountry = "country"
-private let kLocationRegion = "region"
-private let kUnitTemp = "temperature"
-private let kUnitSpeed = "speed"
+
 
 class WeatherObject {
     
 
     // MARK: - Item Properties
-    var temp: Int
+    var temp: String
     var textDescription: String
     
     // MARK: - Location Properties
@@ -32,7 +26,7 @@ class WeatherObject {
     var tempUnit: String
     var speedUnit: String
     
-    init(temp: Int, description: String, city: String, country: String, region: String, tempUnit: String, speedUnit: String) {
+    init(temp: String, description: String, city: String, country: String, region: String, tempUnit: String, speedUnit: String) {
         self.temp = temp
         self.textDescription = description
         self.city = city
@@ -46,8 +40,17 @@ class WeatherObject {
                      locationDict: Dictionary<String, String>,
                      unitDictionary: Dictionary<String, String>) {
 
+        // Keys
+        let kConditionTemp = "temp"
+        let kConditionText = "text"
+        let kLocationCity = "city"
+        let kLocationCountry = "country"
+        let kLocationRegion = "region"
+        let kUnitTemp = "temperature"
+        let kUnitSpeed = "speed"
+        
         // Extract Condition
-        guard let temp = conditionDict[kConditionTemp] as? Int,
+        guard let temp = conditionDict[kConditionTemp] as? String,
         let description = conditionDict[kConditionText] as? String else { return nil}
         
         // Extract Location
