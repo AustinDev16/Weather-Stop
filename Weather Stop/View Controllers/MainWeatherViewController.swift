@@ -23,22 +23,30 @@ class MainWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNavigationBar()
+        configureView()
+        
+        
+        updateViewPendingData()
+        
         // Do any additional setup after loading the view.
         let testQuery = "select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text=\"(40.7141667,-74.0063889)\")"
         WeatherObjectController.fetchWeather(withYQLQuery: testQuery) { (weatherObj, error) in
             if (error != nil) {
                 print(error!.localizedDescription)
             } else {
-                guard let update = weatherObject else { return }
+                guard let update = weatherObj else {
+                    
+                    updateView(withError: nil, message: "No data available for this location. Try again.")
+                    
+                    return
+                    
+                }
                 updateView(update)
             }
         }
         
-        configureNavigationBar()
-        configureView()
-        
-        
-        updateViewPendingData()
+
         
     }
 
@@ -60,7 +68,19 @@ class MainWeatherViewController: UIViewController {
     }
     
     func updateView(withError error: Error?, message: String) {
+        self.tempLabel.text = "--"
+        self.descriptionLabel.text = "No data available."
+        self.title = nil
+        self.indicatorView.stopAnimating()
+        indicatorView.isHidden = true
         
+        if (error != nil) {
+            let ac = UIAlertController(title: "An Error Occurred", message: error!.localizedDescription, preferredStyle: .alert)
+            let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+            ac.addAction(dismiss)
+            
+            self.present(ac, animated: true, completion: nil)
+        }
     }
     
     // Update view while waiting for the API call
