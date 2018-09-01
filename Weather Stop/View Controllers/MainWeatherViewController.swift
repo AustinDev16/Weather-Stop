@@ -161,8 +161,8 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             collectionView.heightAnchor.constraint(equalToConstant: 196)
             ])
         
-        
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "forecastCell")
+        collectionView.backgroundColor = UIColor.groupTableViewBackground
+        collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "forecastCell")
         self.forecastCollectionView = collectionView
         
         
@@ -178,9 +178,11 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.forecastCollectionView?.dequeueReusableCell(withReuseIdentifier: "forecastCell", for: indexPath)
+        let cell = self.forecastCollectionView?.dequeueReusableCell(withReuseIdentifier: "forecastCell", for: indexPath) as? ForecastCollectionViewCell
         
-        cell?.backgroundColor = .green
+        guard let forecasts = self.weatherObject?.forecasts else { return UICollectionViewCell() }
+    
+        cell?.updateCell(withForecast: forecasts[indexPath.row])
         
         return cell ?? UICollectionViewCell()
     }
