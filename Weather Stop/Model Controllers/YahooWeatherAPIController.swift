@@ -16,7 +16,7 @@ class YahooWeatherAPIController {
     
     // MARK: - Methods
     static func fetchWeather(withYQLQuery query: String,
-                             completion: (Dictionary<String, Any>?, Error?, Bool) -> Void) {
+                             completion: @escaping (Dictionary<String, Any>?, Error?, Bool) -> Void) {
 
         // Construct Query String
         // YQL -> percent encoded string
@@ -27,27 +27,34 @@ class YahooWeatherAPIController {
         // Make network call
         guard let url = URL(string: fullURLString) else {completion(nil, nil, false); return;}
         
-        do {
-            let responseData = try Data(contentsOf: url) // Fetches data via HTTPS
-            // Process Result
-            let responseDictionary = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String, Any>
-            
-            // Check for error message}
-            if (responseDictionary != nil) { // Response exists
-                if let errorDictionary = responseDictionary!["error"] as? Dictionary<String, String> { // Response is in error
-                    guard errorDictionary["description"] != nil else { completion(nil, nil, false); return;}
-                    completion(errorDictionary, nil, false)
-                } else { // Response is valid
-                    completion(responseDictionary, nil, true)
+        let urlSession = URLSession(configuration: URLSessionConfiguration.default)
+        
+        let downloadTask = urlSession.dataTask(with: url) { (data, response, error) in
+            if (data != nil) {
+                do {
+                    // Process Result
+                    let responseDictionary = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? Dictionary<String, Any>
+                    
+                    // Check for error message}
+                    if (responseDictionary != nil) { // Response exists
+                        if let errorDictionary = responseDictionary!["error"] as? Dictionary<String, String> { // Response is in error
+                            guard errorDictionary["description"] != nil else { completion(nil, nil, false); return;}
+                            completion(errorDictionary, nil, false)
+                        } else { // Response is valid
+                            completion(responseDictionary, nil, true)
+                        }
+                    } else {
+                        completion(nil, nil, false)
+                    }
+                } catch {
+                    // Error occurred fetching response or parsing result
+                    completion(nil, error, false)
                 }
             } else {
-                completion(nil, nil, false)
+                completion(nil, error, false)
             }
-
-        } catch  {
-            // Error occurred fetching response or parsing result
-            completion(nil, error, false)
         }
         
+        downloadTask.resume()
     }
 }

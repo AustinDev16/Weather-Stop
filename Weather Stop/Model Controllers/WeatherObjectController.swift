@@ -9,18 +9,22 @@
 import Foundation
 class WeatherObjectController {
     
-    // Initiates call to API, handles completion.
+    // Initiates call to API, handles completion on main thread.
     static func fetchWeather(withYQLQuery query: String,
-                             completion: (WeatherObject?, Error?) -> Void) {
+                             completion: @escaping (WeatherObject?, Error?) -> Void) {
         
         YahooWeatherAPIController.fetchWeather(withYQLQuery: query) { (response, error, success) in
             if (success) {
                 let newWeatherObj = buildWeatherObject(fromDictionary: response)
-                completion(newWeatherObj, nil)
+                DispatchQueue.main.async {
+                    completion(newWeatherObj, nil)
+                }
             } else {
-                completion(nil, error)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
             }
-        }
+        } //end block
         
     }
     
