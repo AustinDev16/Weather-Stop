@@ -28,6 +28,9 @@ class MainWeatherViewController: UIViewController {
         WeatherObjectController.fetchWeather(withYQLQuery: testQuery) { (weatherObj, error) in
             if (error != nil) {
                 print(error!.localizedDescription)
+            } else {
+                guard let update = weatherObject else { return }
+                updateView(update)
             }
         }
         
@@ -47,9 +50,9 @@ class MainWeatherViewController: UIViewController {
     // MARK: - Update
     func updateView(_ weatherObject: WeatherObject){
         
-        self.tempLabel.text = "77 " + kDegree
-        self.descriptionLabel.text = "Partly Cloudy"
-        self.title = "Salt Lake City, UT"
+        self.tempLabel.text = "\(weatherObject.temp) " + kDegree
+        self.descriptionLabel.text = weatherObject.textDescription
+        self.title = "\(weatherObject.city), \(weatherObject.region)"
         self.weatherObject = weatherObject
         indicatorView.stopAnimating()
         indicatorView.isHidden = true
