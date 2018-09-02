@@ -69,8 +69,12 @@ class WeatherObjectController {
         let windCondition = Condition(label: "Wind:", quantity: speed, unit: units["speed"])
         
         guard let atmosphere = channel["atmosphere"] as? Dictionary<String, Any>,
-        let humidity = atmosphere["humidity"] as? String else { return weather}
-        let humidCondition = Condition(label: "Humidity:    ", quantity: humidity, unit: "%")
+        let humidity = atmosphere["humidity"] as? String,
+        let pressure = atmosphere["pressure"] as? String,
+        let visibility = atmosphere["visibility"] as? String else { return weather}
+        let humidCondition = Condition(label: "Humidity:", quantity: humidity, unit: "%")
+        let pressureCondition = Condition(label: "Pressure:", quantity: pressure, unit: units["pressure"])
+        let visibleCondition = Condition(label: "Visibility:", quantity: visibility, unit: units["distance"])
         
         guard let astronomy = channel["astronomy"] as? Dictionary<String, String>,
             let sunrise = astronomy["sunrise"],
@@ -78,10 +82,13 @@ class WeatherObjectController {
         let riseCondition = Condition(label: "Sunrise:", quantity: sunrise, unit: nil)
         let setCondition = Condition(label: "Sunset:", quantity: sunset, unit: nil)
         
+        
         weather?.conditions.append(riseCondition)
         weather?.conditions.append(setCondition)
         weather?.conditions.append(windCondition)
         weather?.conditions.append(humidCondition)
+        weather?.conditions.append(pressureCondition)
+        weather?.conditions.append(visibleCondition)
         
         return weather
     }
