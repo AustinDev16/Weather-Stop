@@ -65,7 +65,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     // MARK: - Update
     func updateView(_ weatherObject: WeatherObject){
         
-        self.tempLabel.text = "\(weatherObject.temp) " + kDegree
+        self.tempLabel.text = "\(weatherObject.temp)" + kDegree
         self.descriptionLabel.text = weatherObject.textDescription
         self.title = "\(weatherObject.city), \(weatherObject.region)"
         self.weatherObject = weatherObject
@@ -116,8 +116,10 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func configureView() {
+        // General Appearance
+        self.view.backgroundColor = AppearanceController.mainViewBackgroundColor
         // Temperature label
-        tempLabel.font = UIFont.systemFont(ofSize: 100)
+        tempLabel.font = UIFont.systemFont(ofSize: 80, weight: UIFont.Weight.light)
         tempLabel.textAlignment = .center
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -138,7 +140,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             mainSV.topAnchor.constraintEqualToSystemSpacingBelow(guide.topAnchor, multiplier: 1.0),
             mainSV.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             mainSV.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            mainSV.heightAnchor.constraint(equalToConstant: 150)
+            mainSV.heightAnchor.constraint(equalToConstant: 120)
             ])
         
         configureForecastCollectionView()
@@ -158,7 +160,9 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         flowLayout.itemSize = CGSize(width: self.view.bounds.width, height: 40)
         flowLayout.minimumLineSpacing = 4
         
+        
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 196), collectionViewLayout: flowLayout)
+        collectionView.contentInset = UIEdgeInsetsMake(8, 0, 4, 0)
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -172,7 +176,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor)
             ])
         
-        collectionView.backgroundColor = UIColor.darkGray
+        collectionView.backgroundColor = UIColor.clear
         collectionView.register(ConditionCollectionViewCell.self, forCellWithReuseIdentifier: "conditionCell")
         self.conditionsCollectionView = collectionView
     }
@@ -227,7 +231,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             let cell = self.conditionsCollectionView?.dequeueReusableCell(withReuseIdentifier: "conditionCell", for: indexPath) as? ConditionCollectionViewCell
             guard let conditions = self.weatherObject?.conditions else { return UICollectionViewCell() }
             cell?.updateCell(withCondition: conditions[indexPath.row])
-            cell?.backgroundColor = .green
+            
             return cell ?? UICollectionViewCell()
             
         } else if (collectionView == self.forecastCollectionView) {

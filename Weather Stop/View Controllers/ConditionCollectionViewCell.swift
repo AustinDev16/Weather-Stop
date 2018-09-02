@@ -26,6 +26,7 @@ class ConditionCollectionViewCell: UICollectionViewCell {
             return
         }
         
+        self.backgroundColor = AppearanceController.conditionCellBackgroundColor
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(label)
