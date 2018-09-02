@@ -23,6 +23,9 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     // Forecast
     var forecastCollectionView: UICollectionView?
     
+    // Details
+    var conditionsCollectionView: UICollectionView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,6 +72,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         indicatorView.stopAnimating()
         indicatorView.isHidden = true
 
+        self.conditionsCollectionView?.reloadData()
         self.forecastCollectionView?.reloadData()
     }
     
@@ -79,6 +83,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.indicatorView.stopAnimating()
         indicatorView.isHidden = true
         
+        self.conditionsCollectionView?.reloadData()
         self.forecastCollectionView?.reloadData()
         
         if (error != nil) {
@@ -99,6 +104,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         indicatorView.startAnimating()
         
         self.weatherObject = nil
+        self.forecastCollectionView?.reloadData()
         self.forecastCollectionView?.reloadData()
     }
     
@@ -136,6 +142,39 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             ])
         
         configureForecastCollectionView()
+        if (self.forecastCollectionView != nil) {
+            configureConditionsCollectionView(belowStackView: mainSV, aboveCollectionView: self.forecastCollectionView!)
+        }
+        
+    }
+    
+    func configureConditionsCollectionView(belowStackView stackView: UIStackView, aboveCollectionView colView: UICollectionView) {
+        if (conditionsCollectionView != nil) {
+            return
+        }
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.itemSize = CGSize(width: self.view.bounds.width, height: 40)
+        flowLayout.minimumLineSpacing = 4
+        
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 196), collectionViewLayout: flowLayout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.bottomAnchor.constraint(equalTo: colView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor)
+            ])
+        
+        collectionView.backgroundColor = UIColor.darkGray
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "conditionCell")
+        self.conditionsCollectionView = collectionView
     }
     
     func configureForecastCollectionView() {
@@ -164,8 +203,6 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         collectionView.backgroundColor = UIColor.groupTableViewBackground
         collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "forecastCell")
         self.forecastCollectionView = collectionView
-        
-        
     }
     
     // MARK: - CollectionView Delegate and DataSource
@@ -178,12 +215,22 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.forecastCollectionView?.dequeueReusableCell(withReuseIdentifier: "forecastCell", for: indexPath) as? ForecastCollectionViewCell
-        
-        guard let forecasts = self.weatherObject?.forecasts else { return UICollectionViewCell() }
-    
-        cell?.updateCell(withForecast: forecasts[indexPath.row])
-        
-        return cell ?? UICollectionViewCell()
+        if (collectionView == self.conditionsCollectionView) {
+            let cell = self.conditionsCollectionView?.dequeueReusableCell(withReuseIdentifier: "conditionCell", for: indexPath)
+            cell?.backgroundColor = .green
+            return cell ?? UICollectionViewCell()
+            
+        } else if (collectionView == self.forecastCollectionView) {
+            let cell = self.forecastCollectionView?.dequeueReusableCell(withReuseIdentifier: "forecastCell", for: indexPath) as? ForecastCollectionViewCell
+            
+            guard let forecasts = self.weatherObject?.forecasts else { return UICollectionViewCell() }
+            
+            cell?.updateCell(withForecast: forecasts[indexPath.row])
+            
+            return cell ?? UICollectionViewCell()
+        } else {
+            return UICollectionViewCell()
+        }
+
     }
 }
