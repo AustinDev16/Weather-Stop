@@ -65,6 +65,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     // MARK: - Update
     func updateView(_ weatherObject: WeatherObject){
         
+        self.tempLabel.isHidden = false
         self.tempLabel.text = "\(weatherObject.temp)" + kDegree
         self.descriptionLabel.text = weatherObject.textDescription
         self.title = "\(weatherObject.city), \(weatherObject.region)"
@@ -77,6 +78,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func updateView(withError error: Error?, message: String) {
+        self.tempLabel.isHidden = false
         self.tempLabel.text = "--"
         self.descriptionLabel.text = "No data available."
         self.title = nil
@@ -97,8 +99,9 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // Update view while waiting for the API call
     func updateViewPendingData() {
-        self.tempLabel.text = "--"
-        self.descriptionLabel.text = nil
+        self.tempLabel.text = nil
+        self.tempLabel.isHidden = true
+        self.descriptionLabel.text = "Fetching Weather"
         self.title = nil
         indicatorView.isHidden = false
         indicatorView.startAnimating()
