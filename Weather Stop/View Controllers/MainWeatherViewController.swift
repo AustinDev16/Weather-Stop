@@ -173,7 +173,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             ])
         
         collectionView.backgroundColor = UIColor.darkGray
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "conditionCell")
+        collectionView.register(ConditionCollectionViewCell.self, forCellWithReuseIdentifier: "conditionCell")
         self.conditionsCollectionView = collectionView
     }
     
@@ -211,16 +211,27 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.weatherObject?.forecasts.count ?? 0
+        if (collectionView == self.conditionsCollectionView) {
+            return self.weatherObject?.conditions.count ?? 0
+        } else if (collectionView == self.forecastCollectionView) {
+            return self.weatherObject?.forecasts.count ?? 0
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
         if (collectionView == self.conditionsCollectionView) {
-            let cell = self.conditionsCollectionView?.dequeueReusableCell(withReuseIdentifier: "conditionCell", for: indexPath)
+            
+            let cell = self.conditionsCollectionView?.dequeueReusableCell(withReuseIdentifier: "conditionCell", for: indexPath) as? ConditionCollectionViewCell
+            guard let conditions = self.weatherObject?.conditions else { return UICollectionViewCell() }
+            cell?.updateCell(withCondition: conditions[indexPath.row])
             cell?.backgroundColor = .green
             return cell ?? UICollectionViewCell()
             
         } else if (collectionView == self.forecastCollectionView) {
+            
             let cell = self.forecastCollectionView?.dequeueReusableCell(withReuseIdentifier: "forecastCell", for: indexPath) as? ForecastCollectionViewCell
             
             guard let forecasts = self.weatherObject?.forecasts else { return UICollectionViewCell() }

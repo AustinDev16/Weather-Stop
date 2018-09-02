@@ -20,6 +20,7 @@
 		FAE1F79D213B5115002F20B9 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F79C213B5115002F20B9 /* Forecast.swift */; };
 		FAE1F79F213B5A6A002F20B9 /* ForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F79E213B5A6A002F20B9 /* ForecastCollectionViewCell.swift */; };
 		FAE1F7A1213B675E002F20B9 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F7A0213B675E002F20B9 /* Condition.swift */; };
+		FAE1F7A3213B6D7E002F20B9 /* ConditionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F7A2213B6D7E002F20B9 /* ConditionCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		FAE1F79C213B5115002F20B9 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		FAE1F79E213B5A6A002F20B9 /* ForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAE1F7A0213B675E002F20B9 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
+		FAE1F7A2213B6D7E002F20B9 /* ConditionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				FAE1F79A213B119F002F20B9 /* MainWeatherViewController.swift */,
+				FAE1F7A2213B6D7E002F20B9 /* ConditionCollectionViewCell.swift */,
 				FAE1F79E213B5A6A002F20B9 /* ForecastCollectionViewCell.swift */,
 			);
 			path = "View Controllers";
@@ -298,6 +301,7 @@
 				FAE1F79F213B5A6A002F20B9 /* ForecastCollectionViewCell.swift in Sources */,
 				FAE1F79D213B5115002F20B9 /* Forecast.swift in Sources */,
 				FAE1F796213AFFF1002F20B9 /* WeatherObjectController.swift in Sources */,
+				FAE1F7A3213B6D7E002F20B9 /* ConditionCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
