@@ -188,7 +188,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.itemSize = CGSize(width: 120, height: 180)
+        flowLayout.itemSize = CGSize(width: 120, height: 160)
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 196), collectionViewLayout: flowLayout)
         collectionView.dataSource = self
@@ -204,7 +204,8 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             collectionView.heightAnchor.constraint(equalToConstant: 196)
             ])
         
-        collectionView.backgroundColor = UIColor.groupTableViewBackground
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.contentInset = UIEdgeInsetsMake(8, 8, 8, 8)
         collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "forecastCell")
         self.forecastCollectionView = collectionView
     }

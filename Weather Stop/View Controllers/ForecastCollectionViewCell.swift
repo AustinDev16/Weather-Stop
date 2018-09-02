@@ -29,11 +29,29 @@ class ForecastCollectionViewCell: UICollectionViewCell {
         if (self.stackView != nil) { // Prevents adding duplicate views to cell.
             return
         }
-        self.backgroundColor = .white
+        self.backgroundColor = AppearanceController.forecastCellBackgroundColor
+        
+
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 8
+        
         // Day Label
+        
         dayLabel.textAlignment = .center
+        dayLabel.backgroundColor = AppearanceController.forecastCellHeaderColor
+        dayLabel.textColor = .white
         dayLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(dayLabel)
+        
+        dayLabel.layer.shadowColor = UIColor.black.cgColor
+        dayLabel.layer.shadowRadius = 1.0
+        dayLabel.layer.shadowOpacity = 0.4
+        dayLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
+        dayLabel.layer.masksToBounds = false
+        
+
+
+        
         
         NSLayoutConstraint.activate([
             dayLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor),
@@ -56,6 +74,7 @@ class ForecastCollectionViewCell: UICollectionViewCell {
         textLabel.textAlignment = .center
         textLabel.numberOfLines = 2
         textLabel.adjustsFontSizeToFitWidth = true
+        textLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView(arrangedSubviews: [highLabel, lowLabel, textLabel])
