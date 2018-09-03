@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 let kDegree = "\u{00B0}"
 
@@ -33,12 +34,35 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         configureView()
         
         PlacesController.shared.locationUpdateDelegate = self
-        PlacesController.shared.updateViewWithCurrentLocation()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkForLocationPermission()
+    }
+    
+    func checkForLocationPermission() {
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            // Request when-in-use authorization initially
+            PlacesController.shared.locationManager.requestWhenInUseAuthorization()
+            break
+            
+        case .restricted, .denied:
+            // Disable location features
+            //disableMyLocationBasedFeatures()
+            break
+            
+        case .authorizedWhenInUse, .authorizedAlways:
+            // Enable location features
+            PlacesController.shared.startMonitoringLocation()
+            break
+        }
     }
     
     // MARK: - Update and LocationUpdate Protocol

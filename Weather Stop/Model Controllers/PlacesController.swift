@@ -9,25 +9,64 @@
 import Foundation
 import CoreLocation
 
-class PlacesController {
+class PlacesController: NSObject, CLLocationManagerDelegate {
+    
     // MARK: - Properties
     var places: [Place] = []
-    var locationManager: CLLocationManager?
+    var locationManager: CLLocationManager = CLLocationManager()
+    var locationPermission : Bool = false
     weak var locationUpdateDelegate: LocationUpdate?
     
     static let shared = PlacesController()
     
     
-    init() {
+    override init() {
+        super.init()
         populatePlaces()
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = 500 // in meters
+        locationManager.distanceFilter = 1000 // in meters
+        
     }
     
+    func startMonitoringLocation() {
+        locationManager.startUpdatingLocation()
+    }
+    
+    // MARK: - CLLocationManagerDelegate
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("updated location")
+        guard let location = locations.first,
+            let currentLocation = places.first else {return}
+        currentLocation.location = location
+        if (currentLocation.isSelected) {
+            selectLocation(place: currentLocation)
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            break
+        case .authorizedAlways:
+            break
+        case .denied:
+            fallthrough
+        case .restricted:
+            break;
+        default:
+            break
+        }
+    }
     private func populatePlaces() {
         // Current Location
         let currentLocation = Place(name: "Current Location")
         
         // for testing
-        currentLocation.location = CLLocation(latitude: 40.7141667, longitude: -74.0063889)
+        //currentLocation.location = CLLocation(latitude: 40.7141667, longitude: -74.0063889)
         currentLocation.isSelected = true
         
         // A Few Cities
