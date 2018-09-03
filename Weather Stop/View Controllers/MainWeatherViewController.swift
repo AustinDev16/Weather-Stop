@@ -27,13 +27,17 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     // Details
     var conditionsCollectionView: UICollectionView?
     
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureNavigationBar()
         configureView()
+        updateView(withError: nil, message: "")
+        
         
         PlacesController.shared.locationUpdateDelegate = self
+        PlacesController.shared.checkForLocationPermission()
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,28 +45,11 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        checkForLocationPermission()
-    }
-    
-    func checkForLocationPermission() {
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            // Request when-in-use authorization initially
-            PlacesController.shared.locationManager.requestWhenInUseAuthorization()
-            break
-            
-        case .restricted, .denied:
-            // Disable location features
-            //disableMyLocationBasedFeatures()
-            break
-            
-        case .authorizedWhenInUse, .authorizedAlways:
-            // Enable location features
-            PlacesController.shared.startMonitoringLocation()
-            break
-        }
+    @objc func placesTapped() {
+        let vc = PlacesTableViewController(style: .plain)
+        let nc = UINavigationController(rootViewController: vc)
+        nc.modalPresentationStyle = .fullScreen
+        self.present(nc, animated: true, completion: nil)
     }
     
     // MARK: - Update and LocationUpdate Protocol
@@ -83,7 +70,11 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         updateViewPendingData()
     }
     
+    func showPlacesView() {
+        placesTapped()
+    }
     
+    // MARK: - Update View Methods
     func updateView(_ weatherObject: WeatherObject){
         
         self.tempLabel.isHidden = false
@@ -133,13 +124,6 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.weatherObject = nil
         self.conditionsCollectionView?.reloadData()
         self.forecastCollectionView?.reloadData()
-    }
-    
-    @objc func placesTapped() {
-        let vc = PlacesTableViewController(style: .plain)
-        let nc = UINavigationController(rootViewController: vc)
-        nc.modalPresentationStyle = .fullScreen
-        self.present(nc, animated: true, completion: nil)
     }
     
     // MARK: - Configure View

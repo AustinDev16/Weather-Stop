@@ -30,8 +30,27 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
         
     }
     
+    // MARK: - CoreLocation Methods
     func startMonitoringLocation() {
         locationManager.startUpdatingLocation()
+    }
+    
+    func checkForLocationPermission() {
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            PlacesController.shared.locationManager.requestWhenInUseAuthorization()
+            break
+        case .restricted, .denied:
+            // Disable location features
+            disableLocation()
+            locationUpdateDelegate?.showPlacesView()
+            break
+        case .authorizedWhenInUse, .authorizedAlways:
+            // Enable location features
+            enableLocation()
+            PlacesController.shared.startMonitoringLocation()
+            break
+        }
     }
     
     // MARK: - CLLocationManagerDelegate
@@ -49,24 +68,23 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-        case .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
+            enableLocation()
+            startMonitoringLocation()
             break
-        case .authorizedAlways:
-            break
-        case .denied:
-            fallthrough
-        case .restricted:
-            break;
+        case .denied,.restricted:
+            disableLocation()
+            locationUpdateDelegate?.showPlacesView()
         default:
             break
         }
     }
+    
+    // MARK: - Helper Methods
     private func populatePlaces() {
         // Current Location
         let currentLocation = Place(name: "Current Location")
         
-        // for testing
-        //currentLocation.location = CLLocation(latitude: 40.7141667, longitude: -74.0063889)
         currentLocation.isSelected = true
         
         // A Few Cities
@@ -80,11 +98,6 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
         self.places = [currentLocation, boi, chi, hou, la, ny, slc]
     }
     
-    func updateViewWithCurrentLocation() {
-        guard let currentLocation = self.places.first else {return}
-        self.selectLocation(place: currentLocation)
-    }
-    
     func selectLocation(place: Place) {
         setIsSelected(forPlace: place)
         let query = place.YQLQuery()
@@ -94,6 +107,19 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
             self.locationUpdateDelegate?.updateViewController(weather: weather, error: error)
         }
         
+    }
+    
+    private func disableLocation() {
+        guard let currentLocation = places.first else { return }
+        currentLocation.name = "Current Location: Disabled"
+        currentLocation.isDisabled = true
+        currentLocation.isSelected = false
+    }
+    
+    private func enableLocation() {
+        guard let currentLocation = places.first else { return }
+        currentLocation.name = "Current Location"
+        currentLocation.isDisabled = false
     }
     
     private func setIsSelected(forPlace place: Place) {
@@ -109,4 +135,5 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
 protocol LocationUpdate: class {
     func beginUpdatingLocation() -> Void
     func updateViewController(weather:WeatherObject?, error: Error?) -> Void
+    func showPlacesView() -> Void
 }

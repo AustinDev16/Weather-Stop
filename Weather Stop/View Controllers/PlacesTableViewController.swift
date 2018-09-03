@@ -20,6 +20,11 @@ class PlacesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func closeTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    // MARK: - Configure View
     private func configureNavigationBar() {
         self.title = "Places"
         
@@ -28,10 +33,6 @@ class PlacesTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = close
     }
     
-    @objc func closeTapped() {
-        self.dismiss(animated: true, completion: nil)
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,9 +56,12 @@ class PlacesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlace = PlacesController.shared.places[indexPath.row]
-        self.dismiss(animated: true) {
-            PlacesController.shared.selectLocation(place: selectedPlace)
+        if (!selectedPlace.isDisabled) {
+            self.dismiss(animated: true) {
+                PlacesController.shared.selectLocation(place: selectedPlace)
+            }
         }
+
     }
 
 }
