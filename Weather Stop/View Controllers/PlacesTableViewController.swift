@@ -57,9 +57,8 @@ class PlacesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlace = PlacesController.shared.places[indexPath.row]
         if (!selectedPlace.isDisabled) {
-            self.dismiss(animated: true) {
-                PlacesController.shared.selectLocation(place: selectedPlace)
-            }
+            PlacesController.shared.selectLocation(place: selectedPlace)
+            self.dismiss(animated: true)
         }
 
     }

@@ -32,7 +32,7 @@ class WeatherObjectController {
     static func buildWeatherObject(fromDictionary dict:Dictionary<String, Any>?) -> WeatherObject? {
         
         guard let response = dict else { return nil }
-        print(response)
+        //print(response)
         // Extract out channel from response
         guard let query = response["query"] as? Dictionary<String, Any>,
         let result = query["results"] as? Dictionary<String, Any>,
