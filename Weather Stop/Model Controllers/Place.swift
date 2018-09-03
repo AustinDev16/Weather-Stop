@@ -13,6 +13,7 @@ class Place {
     //MARK: - Properties
     let name: String
     var location: CLLocation?
+    var isSelected: Bool = false
     
     init(name: String) {
         self.name = name

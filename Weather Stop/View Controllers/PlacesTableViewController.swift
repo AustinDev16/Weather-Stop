@@ -44,10 +44,12 @@ class PlacesTableViewController: UITableViewController {
         return PlacesController.shared.places.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = PlacesController.shared.places[indexPath.row].name
+        let place = PlacesController.shared.places[indexPath.row]
+        cell.textLabel?.text = place.name
+        cell.accessoryType = place.isSelected ? .checkmark : .none
+        
         return cell
     }
     

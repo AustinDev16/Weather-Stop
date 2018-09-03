@@ -28,14 +28,17 @@ class PlacesController {
         
         // for testing
         currentLocation.location = CLLocation(latitude: 40.7141667, longitude: -74.0063889)
-        
+        currentLocation.isSelected = true
         
         // A Few Cities
         let la = Place(name: "Los Angeles, CA")
         let slc = Place(name: "Salt Lake City, UT")
+        let hou = Place(name: "Houston, TX")
+        let chi = Place(name: "Chicago, IL")
+        let boi = Place(name: "Boise, ID")
         let ny = Place(name: "New York City, NY")
         
-        self.places = [currentLocation, la, slc, ny]
+        self.places = [currentLocation, boi, chi, hou, la, ny, slc]
     }
     
     func updateViewWithCurrentLocation() {
@@ -44,6 +47,7 @@ class PlacesController {
     }
     
     func selectLocation(place: Place) {
+        setIsSelected(forPlace: place)
         let query = place.YQLQuery()
         self.locationUpdateDelegate?.beginUpdatingLocation()
         
@@ -51,6 +55,14 @@ class PlacesController {
             self.locationUpdateDelegate?.updateViewController(weather: weather, error: error)
         }
         
+    }
+    
+    private func setIsSelected(forPlace place: Place) {
+        self.places.forEach { (placeObj) in
+            placeObj.isSelected = false
+        }
+        
+        place.isSelected = true
     }
     
 }
