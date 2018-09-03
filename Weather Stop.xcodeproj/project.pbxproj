@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FA383F8F213D87F000997212 /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA383F8E213D87F000997212 /* PlacesTableViewController.swift */; };
+		FA383F91213D8A5900997212 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA383F90213D8A5900997212 /* Place.swift */; };
+		FA383F93213D8D0800997212 /* PlacesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA383F92213D8D0800997212 /* PlacesController.swift */; };
 		FAE1F765213AF337002F20B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F764213AF337002F20B9 /* AppDelegate.swift */; };
 		FAE1F76A213AF337002F20B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE1F768213AF337002F20B9 /* Main.storyboard */; };
 		FAE1F76C213AF338002F20B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE1F76B213AF338002F20B9 /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		FA383F8E213D87F000997212 /* PlacesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
+		FA383F90213D8A5900997212 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		FA383F92213D8D0800997212 /* PlacesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesController.swift; sourceTree = "<group>"; };
 		FAE1F761213AF337002F20B9 /* Weather Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather Stop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE1F764213AF337002F20B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAE1F769213AF337002F20B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				FAE1F797213B018D002F20B9 /* WeatherObject.swift */,
 				FAE1F79C213B5115002F20B9 /* Forecast.swift */,
 				FAE1F7A0213B675E002F20B9 /* Condition.swift */,
+				FA383F90213D8A5900997212 /* Place.swift */,
+				FA383F92213D8D0800997212 /* PlacesController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -302,11 +308,13 @@
 				FAE1F765213AF337002F20B9 /* AppDelegate.swift in Sources */,
 				FAE1F7A1213B675E002F20B9 /* Condition.swift in Sources */,
 				FAE1F79B213B119F002F20B9 /* MainWeatherViewController.swift in Sources */,
+				FA383F91213D8A5900997212 /* Place.swift in Sources */,
 				FAE1F794213AF3DB002F20B9 /* YahooWeatherAPIController.swift in Sources */,
 				FA383F8F213D87F000997212 /* PlacesTableViewController.swift in Sources */,
 				FAE1F798213B018D002F20B9 /* WeatherObject.swift in Sources */,
 				FAE1F79F213B5A6A002F20B9 /* ForecastCollectionViewCell.swift in Sources */,
 				FAE1F79D213B5115002F20B9 /* Forecast.swift in Sources */,
+				FA383F93213D8D0800997212 /* PlacesController.swift in Sources */,
 				FAE1F796213AFFF1002F20B9 /* WeatherObjectController.swift in Sources */,
 				FAE1F7A3213B6D7E002F20B9 /* ConditionCollectionViewCell.swift in Sources */,
 				FAE1F7A5213B7FC3002F20B9 /* AppearanceController.swift in Sources */,
