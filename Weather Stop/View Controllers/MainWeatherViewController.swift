@@ -43,6 +43,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // MARK: - Update and LocationUpdate Protocol
     func updateViewController(weather: WeatherObject?, error: Error?) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         if (error != nil) {
             self.updateView(withError: error, message: "")
         } else {
@@ -96,6 +97,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // Update view while waiting for the API call
     func updateViewPendingData() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         self.tempLabel.text = nil
         self.tempLabel.isHidden = true
         self.descriptionLabel.text = "Fetching Weather"
