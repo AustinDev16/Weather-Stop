@@ -57,6 +57,13 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
             PlacesController.shared.refreshData()
         }
     }
+    
+    @objc func infoTapped() {
+        let infoPanel = UIAlertController(title: "Yahoo Weather", message: weatherObject?.link, preferredStyle: .alert)
+        infoPanel.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        
+        self.present(infoPanel, animated: true, completion: nil)
+    }
     // MARK: - Update and LocationUpdate Protocol
     func updateViewController(weather: WeatherObject?, error: Error?) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -138,7 +145,11 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.navigationController?.navigationBar.backgroundColor = .white
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshTapped))
-        self.navigationItem.rightBarButtonItem = refresh
+        let infoButton = UIButton(type: .detailDisclosure)
+        infoButton.addTarget(self, action: #selector(infoTapped), for: .touchUpInside)
+        let info = UIBarButtonItem(customView: infoButton)
+
+        self.navigationItem.rightBarButtonItems = [refresh, info]
         
         let places = UIBarButtonItem(title: "Places", style: .done, target: self, action: #selector(placesTapped))
         self.navigationItem.leftBarButtonItem = places

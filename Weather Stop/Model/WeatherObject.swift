@@ -16,6 +16,7 @@ class WeatherObject {
     // MARK: - Item Properties
     var temp: String
     var textDescription: String
+    var link: String?
     
     // MARK: - Location Properties
     var city: String

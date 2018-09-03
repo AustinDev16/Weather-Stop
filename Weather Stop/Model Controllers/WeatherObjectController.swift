@@ -90,6 +90,10 @@ class WeatherObjectController {
         weather?.conditions.append(pressureCondition)
         weather?.conditions.append(visibleCondition)
         
+        // Link
+        guard let link = channel["link"] as? String else {return weather}
+        weather?.link = link
+        
         return weather
     }
 }
