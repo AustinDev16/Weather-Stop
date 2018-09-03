@@ -13,6 +13,7 @@ class PlacesController {
     // MARK: - Properties
     var places: [Place] = []
     var locationManager: CLLocationManager?
+    weak var locationUpdateDelegate: LocationUpdate?
     
     static let shared = PlacesController()
     
@@ -34,7 +35,27 @@ class PlacesController {
         let slc = Place(name: "Salt Lake City, UT")
         let ny = Place(name: "New York City, NY")
         
-        self.places = [currentLocation, la, slc]
+        self.places = [currentLocation, la, slc, ny]
     }
     
+    func updateViewWithCurrentLocation() {
+        guard let currentLocation = self.places.first else {return}
+        self.selectLocation(place: currentLocation)
+    }
+    
+    func selectLocation(place: Place) {
+        let query = place.YQLQuery()
+        self.locationUpdateDelegate?.beginUpdatingLocation()
+        
+        WeatherObjectController.fetchWeather(withYQLQuery: query) { (weather, error) in
+            self.locationUpdateDelegate?.updateViewController(weather: weather, error: error)
+        }
+        
+    }
+    
+}
+
+protocol LocationUpdate: class {
+    func beginUpdatingLocation() -> Void
+    func updateViewController(weather:WeatherObject?, error: Error?) -> Void
 }

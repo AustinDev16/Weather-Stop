@@ -10,7 +10,7 @@ import UIKit
 
 let kDegree = "\u{00B0}"
 
-class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, LocationUpdate {
 
     // MARK: - Properties
     var weatherObject: WeatherObject?
@@ -32,29 +32,8 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         configureNavigationBar()
         configureView()
         
-        
-        updateViewPendingData()
-        
-        // Do any additional setup after loading the view.
-        let testQuery = "select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text=\"(40.7141667,-74.0063889)\")"
-        WeatherObjectController.fetchWeather(withYQLQuery: testQuery) { (weatherObj, error) in
-            if (error != nil) {
-                //print(error!.localizedDescription)
-                self.updateView(withError: error, message: "")
-            } else {
-                guard let update = weatherObj else {
-                    
-                    self.updateView(withError: nil, message: "No data available for this location. Try again.")
-                    
-                    return
-                    
-                }
-                self.updateView(update)
-            }
-        }
-        
-
-        
+        PlacesController.shared.locationUpdateDelegate = self
+        PlacesController.shared.updateViewWithCurrentLocation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,7 +41,24 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Update
+    // MARK: - Update and LocationUpdate Protocol
+    func updateViewController(weather: WeatherObject?, error: Error?) {
+        if (error != nil) {
+            self.updateView(withError: error, message: "")
+        } else {
+            guard let update = weather else {
+                self.updateView(withError: nil, message: "No data available for this location. Try again.")
+                return
+            }
+            self.updateView(update)
+        }
+    }
+    
+    func beginUpdatingLocation() {
+        updateViewPendingData()
+    }
+    
+    
     func updateView(_ weatherObject: WeatherObject){
         
         self.tempLabel.isHidden = false
@@ -104,11 +100,12 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.tempLabel.isHidden = true
         self.descriptionLabel.text = "Fetching Weather"
         self.title = nil
+        self.weatherObject = nil
         indicatorView.isHidden = false
         indicatorView.startAnimating()
         
         self.weatherObject = nil
-        self.forecastCollectionView?.reloadData()
+        self.conditionsCollectionView?.reloadData()
         self.forecastCollectionView?.reloadData()
     }
     
