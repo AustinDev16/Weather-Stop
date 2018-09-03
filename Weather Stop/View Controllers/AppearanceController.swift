@@ -12,10 +12,20 @@ import UIKit
 // All colors are stored and managed here.
 class AppearanceController {
     
-//    static let mainViewBackgroundColor = UIColor(red: 217/255.0, green: 225/255.0, blue: 237/255.0, alpha: 1.0)
-    static let mainViewBackgroundColor = AppearanceController.forecastCellHeaderColor.withAlphaComponent(0.1)
+    static let navigationBarTintColor = UIColor(red: 39/255.0, green: 111/255.0, blue: 191/255.0, alpha: 1.0)
     static let conditionCellBackgroundColor = UIColor.white.withAlphaComponent(0.5) // 0.3
-    static let forecastCellBackgroundColor = UIColor.white.withAlphaComponent(0.9)
-//    static let forecastCellHeaderColor = UIColor(red: 24/255.0, green: 48/255.0, blue: 89/255.0, alpha: 1.0)
     static let forecastCellHeaderColor = UIColor(red: 39/255.0, green: 111/255.0, blue: 191/255.0, alpha: 1.0)
+    static let forecastCellBackgroundColor = UIColor.white.withAlphaComponent(0.8)
+    
+    static func gradientLayer() -> CAGradientLayer {
+        let baseBlue = UIColor(red: 41/255.0, green: 128/255.0, blue: 185/255.0, alpha: 1.0).cgColor
+        let midBlue = UIColor(red: 109/255.0, green: 213/255.0, blue: 250/255.0, alpha: 1.0).cgColor
+        let topWhite = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0).cgColor
+        
+        let gradient = CAGradientLayer()
+        gradient.colors = [topWhite, midBlue, baseBlue]
+        gradient.locations = [0.0, 0.5, 1.0]
+        
+        return gradient
+    }
 }

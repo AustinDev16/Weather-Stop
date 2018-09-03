@@ -74,6 +74,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         indicatorView.isHidden = true
 
         self.conditionsCollectionView?.reloadData()
+        self.conditionsCollectionView?.flashScrollIndicators()
         self.forecastCollectionView?.reloadData()
     }
     
@@ -114,13 +115,20 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     // MARK: - Configure View
     func configureNavigationBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.tintColor = AppearanceController.navigationBarTintColor
+        self.navigationController?.navigationBar.backgroundColor = .white
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = refresh
     }
     
     func configureView() {
+        
         // General Appearance
-        self.view.backgroundColor = AppearanceController.mainViewBackgroundColor
+        self.view.backgroundColor = UIColor.clear
+        let backgroundLayer = AppearanceController.gradientLayer()
+        backgroundLayer.frame = view.frame
+        self.view.layer.insertSublayer(backgroundLayer, at: 0)
+        
         // Temperature label
         tempLabel.font = UIFont.systemFont(ofSize: 80, weight: UIFont.Weight.light)
         tempLabel.textAlignment = .center
@@ -165,7 +173,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 196), collectionViewLayout: flowLayout)
-        collectionView.contentInset = UIEdgeInsetsMake(8, 0, 4, 0)
+        collectionView.contentInset = UIEdgeInsetsMake(12, 0, 4, 0)
         collectionView.dataSource = self
         collectionView.delegate = self
         

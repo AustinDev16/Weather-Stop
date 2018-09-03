@@ -31,13 +31,13 @@ class ForecastCollectionViewCell: UICollectionViewCell {
         }
         self.backgroundColor = AppearanceController.forecastCellBackgroundColor
         
-
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 8
         
         // Day Label
         
         dayLabel.textAlignment = .center
+        dayLabel.font = UIFont.boldSystemFont(ofSize: 18)
         dayLabel.backgroundColor = AppearanceController.forecastCellHeaderColor
         dayLabel.textColor = .white
         dayLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -48,10 +48,6 @@ class ForecastCollectionViewCell: UICollectionViewCell {
         dayLabel.layer.shadowOpacity = 0.4
         dayLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
         dayLabel.layer.masksToBounds = false
-        
-
-
-        
         
         NSLayoutConstraint.activate([
             dayLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor),
