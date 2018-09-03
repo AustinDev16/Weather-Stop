@@ -52,6 +52,11 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.present(nc, animated: true, completion: nil)
     }
     
+    @objc func refreshTapped() {
+        if (self.weatherObject != nil) {
+            PlacesController.shared.refreshData()
+        }
+    }
     // MARK: - Update and LocationUpdate Protocol
     func updateViewController(weather: WeatherObject?, error: Error?) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -132,7 +137,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.navigationController?.navigationBar.tintColor = AppearanceController.navigationBarTintColor
         self.navigationController?.navigationBar.backgroundColor = .white
         
-        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: nil)
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshTapped))
         self.navigationItem.rightBarButtonItem = refresh
         
         let places = UIBarButtonItem(title: "Places", style: .done, target: self, action: #selector(placesTapped))

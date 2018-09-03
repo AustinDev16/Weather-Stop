@@ -55,7 +55,7 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
     
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("updated location")
         guard let location = locations.first,
             let currentLocation = places.first else {return}
@@ -66,7 +66,7 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
     }
     
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    internal func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
             enableLocation()
@@ -107,6 +107,14 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
             self.locationUpdateDelegate?.updateViewController(weather: weather, error: error)
         }
         
+    }
+    
+    func refreshData() {
+        let selectedArray = places.filter { (place) -> Bool in
+            return place.isSelected
+        }
+        guard let selected = selectedArray.first else { return }
+        selectLocation(place: selected)
     }
     
     private func disableLocation() {
