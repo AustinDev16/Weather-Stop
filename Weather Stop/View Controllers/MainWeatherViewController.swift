@@ -112,13 +112,24 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.forecastCollectionView?.reloadData()
     }
     
+    @objc func placesTapped() {
+        let vc = PlacesTableViewController(style: .plain)
+        let nc = UINavigationController(rootViewController: vc)
+        nc.modalPresentationStyle = .fullScreen
+        self.present(nc, animated: true, completion: nil)
+    }
+    
     // MARK: - Configure View
     func configureNavigationBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.tintColor = AppearanceController.navigationBarTintColor
         self.navigationController?.navigationBar.backgroundColor = .white
+        
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = refresh
+        
+        let places = UIBarButtonItem(title: "Places", style: .done, target: self, action: #selector(placesTapped))
+        self.navigationItem.leftBarButtonItem = places
     }
     
     func configureView() {

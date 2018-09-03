@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA383F8F213D87F000997212 /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA383F8E213D87F000997212 /* PlacesTableViewController.swift */; };
 		FAE1F765213AF337002F20B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE1F764213AF337002F20B9 /* AppDelegate.swift */; };
 		FAE1F76A213AF337002F20B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE1F768213AF337002F20B9 /* Main.storyboard */; };
 		FAE1F76C213AF338002F20B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE1F76B213AF338002F20B9 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA383F8E213D87F000997212 /* PlacesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
 		FAE1F761213AF337002F20B9 /* Weather Stop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather Stop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE1F764213AF337002F20B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAE1F769213AF337002F20B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				FAE1F79A213B119F002F20B9 /* MainWeatherViewController.swift */,
+				FA383F8E213D87F000997212 /* PlacesTableViewController.swift */,
 				FAE1F7A4213B7FC3002F20B9 /* AppearanceController.swift */,
 				FAE1F7A2213B6D7E002F20B9 /* ConditionCollectionViewCell.swift */,
 				FAE1F79E213B5A6A002F20B9 /* ForecastCollectionViewCell.swift */,
@@ -300,6 +303,7 @@
 				FAE1F7A1213B675E002F20B9 /* Condition.swift in Sources */,
 				FAE1F79B213B119F002F20B9 /* MainWeatherViewController.swift in Sources */,
 				FAE1F794213AF3DB002F20B9 /* YahooWeatherAPIController.swift in Sources */,
+				FA383F8F213D87F000997212 /* PlacesTableViewController.swift in Sources */,
 				FAE1F798213B018D002F20B9 /* WeatherObject.swift in Sources */,
 				FAE1F79F213B5A6A002F20B9 /* ForecastCollectionViewCell.swift in Sources */,
 				FAE1F79D213B5115002F20B9 /* Forecast.swift in Sources */,
