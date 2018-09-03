@@ -96,6 +96,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA383F94213DB39D00997212 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAE1F79C213B5115002F20B9 /* Forecast.swift */,
+				FAE1F7A0213B675E002F20B9 /* Condition.swift */,
+				FAE1F797213B018D002F20B9 /* WeatherObject.swift */,
+				FA383F90213D8A5900997212 /* Place.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		FAE1F758213AF337002F20B9 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				FAE1F799213B1161002F20B9 /* View Controllers */,
+				FA383F94213DB39D00997212 /* Model */,
 				FAE1F792213AF39E002F20B9 /* Model Controllers */,
 				FAE1F764213AF337002F20B9 /* AppDelegate.swift */,
 				FAE1F768213AF337002F20B9 /* Main.storyboard */,
@@ -153,10 +165,6 @@
 			children = (
 				FAE1F793213AF3DB002F20B9 /* YahooWeatherAPIController.swift */,
 				FAE1F795213AFFF1002F20B9 /* WeatherObjectController.swift */,
-				FAE1F797213B018D002F20B9 /* WeatherObject.swift */,
-				FAE1F79C213B5115002F20B9 /* Forecast.swift */,
-				FAE1F7A0213B675E002F20B9 /* Condition.swift */,
-				FA383F90213D8A5900997212 /* Place.swift */,
 				FA383F92213D8D0800997212 /* PlacesController.swift */,
 			);
 			path = "Model Controllers";
