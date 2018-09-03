@@ -16,6 +16,7 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
     var locationManager: CLLocationManager = CLLocationManager()
     var locationPermission : Bool = false
     weak var locationUpdateDelegate: LocationUpdate?
+    var currentLocationPlaceholder: CLLocation?
     
     static let shared = PlacesController()
     
@@ -56,13 +57,24 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
     // MARK: - CLLocationManagerDelegate
     
     internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("updated location")
+        print("Updated location")
         guard let location = locations.first,
             let currentLocation = places.first else {return}
+
         currentLocation.location = location
         if (currentLocation.isSelected) {
-            selectLocation(place: currentLocation)
+            
+            if (currentLocationPlaceholder != nil) {
+                if (location.distance(from: currentLocationPlaceholder!) > 1000) {
+                    selectLocation(place: currentLocation)
+                }
+            } else {
+                selectLocation(place: currentLocation)
+            }
+            
         }
+        
+        currentLocationPlaceholder = location
     }
     
     
