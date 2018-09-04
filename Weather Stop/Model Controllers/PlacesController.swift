@@ -60,7 +60,7 @@ class PlacesController: NSObject, CLLocationManagerDelegate {
         print("Updated location")
         guard let location = locations.first,
             let currentLocation = places.first else {return}
-
+        
         currentLocation.location = location
         if (currentLocation.isSelected) {
             

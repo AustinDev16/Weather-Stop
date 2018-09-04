@@ -35,15 +35,15 @@ class WeatherObjectController {
         //print(response)
         // Extract out channel from response
         guard let query = response["query"] as? Dictionary<String, Any>,
-        let result = query["results"] as? Dictionary<String, Any>,
-        let channel = result["channel"] as? Dictionary<String, Any> else { return nil }
+            let result = query["results"] as? Dictionary<String, Any>,
+            let channel = result["channel"] as? Dictionary<String, Any> else { return nil }
         
         
         // Extract Individual channels
         
         // Item
         guard let item = channel["item"] as? Dictionary<String, Any>,
-        let condition = item["condition"] as? Dictionary<String, Any> else {return nil}
+            let condition = item["condition"] as? Dictionary<String, Any> else {return nil}
         
         // Location
         guard let location = channel["location"] as? Dictionary<String, String> else {return nil}
@@ -65,13 +65,13 @@ class WeatherObjectController {
         
         // Conditions
         guard let wind = channel["wind"] as? Dictionary<String, Any>,
-        let speed = wind["speed"] as? String else {return weather}
+            let speed = wind["speed"] as? String else {return weather}
         let windCondition = Condition(label: "Wind:", quantity: speed, unit: units["speed"])
         
         guard let atmosphere = channel["atmosphere"] as? Dictionary<String, Any>,
-        let humidity = atmosphere["humidity"] as? String,
-        let pressure = atmosphere["pressure"] as? String,
-        let visibility = atmosphere["visibility"] as? String else { return weather}
+            let humidity = atmosphere["humidity"] as? String,
+            let pressure = atmosphere["pressure"] as? String,
+            let visibility = atmosphere["visibility"] as? String else { return weather}
         let humidCondition = Condition(label: "Humidity:", quantity: humidity, unit: "%")
         let pressureCondition = Condition(label: "Pressure:", quantity: pressure, unit: units["pressure"])
         let visibleCondition = Condition(label: "Visibility:", quantity: visibility, unit: units["distance"])

@@ -12,7 +12,7 @@ import Foundation
 
 class WeatherObject {
     
-
+    
     // MARK: - Item Properties
     var temp: String
     var textDescription: String
@@ -43,9 +43,9 @@ class WeatherObject {
     }
     
     convenience init?(conditionDict: Dictionary<String, Any>,
-                     locationDict: Dictionary<String, String>,
-                     unitDictionary: Dictionary<String, String>) {
-
+                      locationDict: Dictionary<String, String>,
+                      unitDictionary: Dictionary<String, String>) {
+        
         // Keys
         let kConditionTemp = "temp"
         let kConditionText = "text"
@@ -57,17 +57,17 @@ class WeatherObject {
         
         // Extract Condition
         guard let temp = conditionDict[kConditionTemp] as? String,
-        let description = conditionDict[kConditionText] as? String else { return nil}
+            let description = conditionDict[kConditionText] as? String else { return nil}
         
         // Extract Location
         guard let city = locationDict[kLocationCity],
-        let country = locationDict[kLocationCountry],
-        let region = locationDict[kLocationRegion] else { return nil}
+            let country = locationDict[kLocationCountry],
+            let region = locationDict[kLocationRegion] else { return nil}
         
         // Extract Units
         guard let tempUnit = unitDictionary[kUnitTemp],
-        let speedUnit = unitDictionary[kUnitSpeed] else  { return nil}
-    
+            let speedUnit = unitDictionary[kUnitSpeed] else  { return nil}
+        
         
         self.init(temp: temp, description: description, city: city, country: country, region: region, tempUnit: tempUnit, speedUnit: speedUnit)
     }

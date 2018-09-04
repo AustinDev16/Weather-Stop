@@ -35,9 +35,9 @@ class Forecast {
         let kDescription = "text"
         
         guard let day = dictionary[kDay] as? String,
-        let high = dictionary[kHigh] as? String,
-        let low = dictionary[kLow] as? String,
-        let text = dictionary[kDescription] as? String else { return nil }
+            let high = dictionary[kHigh] as? String,
+            let low = dictionary[kLow] as? String,
+            let text = dictionary[kDescription] as? String else { return nil }
         
         self.init(day: day, high: high, low: low, text: text, isToday: isToday)
     }

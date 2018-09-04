@@ -12,7 +12,7 @@ import CoreLocation
 let kDegree = "\u{00B0}"
 
 class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, LocationUpdate {
-
+    
     // MARK: - Properties
     var weatherObject: WeatherObject?
     
@@ -30,7 +30,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureNavigationBar()
         configureView()
         updateView(withError: nil, message: "")
@@ -39,7 +39,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         PlacesController.shared.locationUpdateDelegate = self
         PlacesController.shared.checkForLocationPermission()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -96,7 +96,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         self.weatherObject = weatherObject
         indicatorView.stopAnimating()
         indicatorView.isHidden = true
-
+        
         self.conditionsCollectionView?.reloadData()
         self.conditionsCollectionView?.flashScrollIndicators()
         self.forecastCollectionView?.reloadData()
@@ -148,7 +148,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         let infoButton = UIButton(type: .detailDisclosure)
         infoButton.addTarget(self, action: #selector(infoTapped), for: .touchUpInside)
         let info = UIBarButtonItem(customView: infoButton)
-
+        
         self.navigationItem.rightBarButtonItems = [refresh, info]
         
         let places = UIBarButtonItem(title: "Places", style: .done, target: self, action: #selector(placesTapped))
@@ -271,7 +271,7 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
+        
         if (collectionView == self.conditionsCollectionView) {
             
             let cell = self.conditionsCollectionView?.dequeueReusableCell(withReuseIdentifier: "conditionCell", for: indexPath) as? ConditionCollectionViewCell
@@ -292,6 +292,6 @@ class MainWeatherViewController: UIViewController, UICollectionViewDelegate, UIC
         } else {
             return UICollectionViewCell()
         }
-
+        
     }
 }

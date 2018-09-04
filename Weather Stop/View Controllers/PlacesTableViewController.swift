@@ -9,12 +9,12 @@
 import UIKit
 
 class PlacesTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -23,7 +23,7 @@ class PlacesTableViewController: UITableViewController {
     @objc func closeTapped() {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     // MARK: - Configure View
     private func configureNavigationBar() {
         self.title = "Places"
@@ -34,17 +34,17 @@ class PlacesTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return PlacesController.shared.places.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         let place = PlacesController.shared.places[indexPath.row]
@@ -60,7 +60,7 @@ class PlacesTableViewController: UITableViewController {
             PlacesController.shared.selectLocation(place: selectedPlace)
             self.dismiss(animated: true)
         }
-
+        
     }
-
+    
 }
